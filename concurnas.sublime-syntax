@@ -17,41 +17,37 @@ contexts:
         0: keyword.control.concurnas
     - match: \b(private|public|package|protected)\b
       captures:
-        0: keyword.control.concurnas
+        0: storage.modifier.concurnas
     - match: \b(true|false|null|this|super)\b
       captures:
         0: constant.language.concurnas
-    - match: \b(fun|def|gpudef|gpukernel|init|global|local|constant|annotation|class|trait|enum|typedef|await|transient|new|abstract|override|extends|implements)\b
+    - match: \b(fun|def|gpudef|gpukernel|init|annotation|class|trait|enum|await|transient|extends|implements)\b
+      captures:
+        0: entity.name.concurnas
+    - match: \b(global|local|constant|val|var|typedef|abstract|override)\b
+      captures:
+        0: storage.modifier.concurnas
+    - match: \b(\.\.|\.|in|out|del|default|sizeof|trans|while|for|using|match|with|if|elif|else|throw|try|catch|finally|onchange|every|async|pre|post|loop|also|open|closed|sync|parfor|parforsync|return|break|continue|actor|in|of|changed|match|case)\b
       captures:
         0: keyword.control.concurnas
-    - match: \b(val|var)\b
+    - match: '(&|@|==|&==|<>|&<>|>||<|==>|==<|:|<=|<-|->|\.\.\.)'
       captures:
-        0: keyword.control.concurnas
-    - match: \b(\.\.|\.|in|out|del|default|sizeof|trans|while|for|using|match|with|if|elif|else|throw|try|catch|finally|onchange|every|async|pre|post|loop|also|open|closed|sync|parfor|parforsync|object|return|break|continue|actor|in|of|changed|match|case)\b
-      captures:
-        0: keyword.control.concurnas
-    - match: '(&|@|==|&==|<>|&<>|>|\|||<|==>|==<|:|<=|<-|->|\.\.\.)'
-      captures:
-        0: keyword.control.concurnas
-
+        0: keyword.operator.concurnas
     - match: \b(comp|mod|or|and|not|band|bor|bxor)\b
       captures:
-        0: keyword.control.concurnas
-
+        0: keyword.operator.concurnas
     - match: \b(inject|provider|provide|single|shared)\b
       captures:
         0: keyword.control.concurnas
-
     - match: \b(nodefault|unchecked)\b
       captures:
         0: keyword.control.concurnas
-
     - match: '(\^|\+|-|~|\*|/|>>|<<|>>>|\*\*|!|<|>)'
       captures:
-        0: keyword.control.concurnas
-    - match: '(=>?|\+=|\*=|\*\*=|-=|/=|or=|and=|bxor=|bor=|band=|mod=|>>=|<<=|>>>=)'
+        0: keyword.operator.concurnas
+    - match: '(=>|\?|\+=|\*=|\*\*=|-=|/=|or=|and=|bxor=|bor=|band=|mod=|>>=|<<=|>>>=)'
       captures:
-        0: keyword.control.concurnas
+        0: keyword.operator.concurnas
 
 
     - include: floatingPoints
@@ -103,6 +99,24 @@ contexts:
         - match: '([^\x{0027}\x{005c}]+)'
           captures:
             0: string.quoted.concurnas
+        - match: '(.)'
+          captures:
+            0: text.concurnas
+
+    - match: '(\|\|)'
+      captures:
+        0: string.regexp.concurnas
+      push: 
+        - match: '(\|\|)'
+          pop: true
+          captures:
+            0: string.regexp.concurnas
+        - match: '(\\(?:\\|(\|\|)))'
+          captures:
+            0: string.regexp.concurnas
+        - match: '([^\x{0028}\|\|\x{0029}\x{005c}]+)'
+          captures:
+            0: string.regexp.concurnas
         - match: '(.)'
           captures:
             0: text.concurnas

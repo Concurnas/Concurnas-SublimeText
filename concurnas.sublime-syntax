@@ -24,7 +24,7 @@ contexts:
     - match: \b(fun|def|gpudef|gpukernel|init|annotation|class|trait|enum|await|transient|extends|implements)\b
       captures:
         0: entity.name.concurnas
-    - match: \b(global|local|constant|val|var|typedef|abstract|override)\b
+    - match: \b(global|local|constant|val|var|typedef|abstract|override|lazy)\b
       captures:
         0: storage.modifier.concurnas
     - match: \b(\.\.|\.|in|out|del|default|sizeof|trans|while|for|using|match|with|if|elif|else|throw|try|catch|finally|onchange|every|async|pre|post|loop|also|open|closed|sync|parfor|parforsync|return|break|continue|actor|in|of|changed|match|case)\b
